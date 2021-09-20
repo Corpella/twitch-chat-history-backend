@@ -46,19 +46,17 @@ const client = new tmi.Client({
 client.connect();
 
 client.on('message', async (channel, tags, message, self) => {
-  const user = new Message({
+  const msg = new Message({
     name: tags['display-name'],
     color: tags.color,
     message: message
   })
   try {
-    await user.save()
+    await msg.save()
 
   } catch (error) {
     console.error(error)
 
   }
-
-
   console.log(`${tags['display-name']}: ${message}`);
 });

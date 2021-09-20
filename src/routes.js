@@ -9,19 +9,20 @@ const Message = require("./models/message")
 
 router.get("/:interval", async (req, res) => {
     try {
-        const chatHistory = await Message.find()
+        // const chatHistory = await Message.find()
 
-        // const hours = typeof req.params.interval == 'number' ? req.params.interval : 12
+        const days = typeof req.params.interval == 'number' ? req.params.interval : 1
 
-        // const chatHistory = await Message.find({
-        //     "createdAt": {
-        //         $lt: new Date(),
-        //         $gte: new Date(Date.now() - hours * 60 * 60 * 1000)
-        //     }
-        // })
+        const chatHistory = await Message.find({
+            "createdAt": {
+                $gt: new Date(new Date().setDate(new Date().getDate() - days)),
+                $lt: new Date(),
+            }
+        })
+        console.log(chatHistory.length);
 
         res.json(chatHistory)
-        
+
     } catch (error) {
         res.status(500).json({ message: error.message })
 
