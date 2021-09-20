@@ -26,6 +26,10 @@ app.use(express.json())
 
 app.use("/chat", routes)
 
+app.get("/", (req, res) => {
+  res.send(("App running"));
+})
+
 
 app.listen(3000, () => {
   console.log(`Started`)
