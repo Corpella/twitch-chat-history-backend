@@ -4,6 +4,8 @@ const express = require('express')
 const mongoose = require("mongoose")
 const app = express()
 
+var cors = require('cors')
+
 const routes = require("./routes")
 
 
@@ -20,7 +22,7 @@ db.once("open", () => console.log("Connected"))
 
 const Message = require("./models/message")
 
-
+app.use(cors())
 
 app.use(express.json())
 
@@ -62,7 +64,5 @@ client.on('message', async (channel, tags, message, self) => {
 
   } catch (error) {
     console.error(error)
-
   }
-  console.log(`${tags['display-name']}: ${message}`);
 });

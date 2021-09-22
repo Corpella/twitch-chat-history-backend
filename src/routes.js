@@ -19,7 +19,6 @@ router.get("/:interval", async (req, res) => {
                 $lt: new Date(),
             }
         })
-        console.log(chatHistory.length);
 
         res.json(chatHistory)
 
