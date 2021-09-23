@@ -11,7 +11,7 @@ router.get("/:interval", async (req, res) => {
     try {
         // const chatHistory = await Message.find()
 
-        const days = typeof req.params.interval == 'number' ? req.params.interval : 1
+        const days = typeof parseInt(req.params.interval) == 'number' ? req.params.interval : 1
 
         const chatHistory = await Message.find({
             "createdAt": {
