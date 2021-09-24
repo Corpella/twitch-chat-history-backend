@@ -70,17 +70,3 @@ client.on('message', async (channel, tags, message, self) => {
     console.error(error)
   }
 });
-
-// Prevent HEROKU from putting your app to sleep after 30 mins of inactivity by making a request every 29mins.
-
-//If you're not using Heroku, you can ignore this abomination
-const herokuURL = process.env.HEROKU_REFRESH_ENDPOINT
-
-if (herokuURL) {
-  var https = require("https");
-  setInterval(function () {
-    console.log('Refresh server')
-    https.get(herokuURL + "/chat/1");
-  }, 1740000);
-
-}
