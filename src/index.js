@@ -46,9 +46,6 @@ const tmi = require('tmi.js');
 const channel = process.env.CHANNEL_ID
 
 const client = new tmi.Client({
-  options: {
-    debug: true,
-  },
   connection: { reconnect: true },
   // Can potentially work on multiple channels
   channels: [channel]
@@ -70,3 +67,16 @@ client.on('message', async (channel, tags, message, self) => {
     console.error(error)
   }
 });
+
+// Prevent HEROKU from putting your app to sleep after 30 mins of inactivity by making a request every 29mins.
+
+//If you're not using Heroku, you can delete this abomination
+
+var http = require("http");
+
+const herokuURL = process.env.HEROKU_REFRESH_ENDPOINT
+
+setInterval(function () {
+  http.get(herokuURL + "/chat/1");
+}, 1740000);
+
