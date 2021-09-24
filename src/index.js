@@ -64,7 +64,7 @@ client.on('message', async (channel, tags, message, self) => {
     message: message
   })
   try {
-    await msg.save()
+    msg.save()
 
   } catch (error) {
     console.error(error)
