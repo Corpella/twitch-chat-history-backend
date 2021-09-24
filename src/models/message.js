@@ -16,9 +16,9 @@ const messageSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now,
+        expires: "8d"
     }
-    
 })
 
 module.exports = mongoose.model("Message", messageSchema)

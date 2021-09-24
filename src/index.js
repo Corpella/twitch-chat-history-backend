@@ -46,12 +46,16 @@ const tmi = require('tmi.js');
 const channel = process.env.CHANNEL_ID
 
 const client = new tmi.Client({
+  options: {
+    debug: true,
+  },
   connection: { reconnect: true },
   // Can potentially work on multiple channels
   channels: [channel]
 });
 
 client.connect();
+
 
 client.on('message', async (channel, tags, message, self) => {
   const msg = new Message({
