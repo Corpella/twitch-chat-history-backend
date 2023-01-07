@@ -13,6 +13,10 @@ const messageSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    channel: {
+        required: true,
+        type: String
+    },
     createdAt: {
         type: Date,
         required: true,
