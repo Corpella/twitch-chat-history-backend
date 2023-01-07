@@ -4,7 +4,7 @@ const express = require('express')
 const mongoose = require("mongoose")
 const app = express()
 
-var cors = require('cors')
+const cors = require('cors')
 
 const routes = require("./routes")
 
@@ -39,33 +39,31 @@ app.listen(port, () => {
   console.log(`Started`)
 })
 
-// socket client
-
 const tmi = require('tmi.js');
 
-const channel = process.env.CHANNEL_ID
+const channels = process.env.CHANNEL_ID.split(',')
+
 
 const client = new tmi.Client({
   options: {
     debug: true
   },
   connection: { reconnect: true },
-  // Can potentially work on multiple channels
-  channels: [channel]
+  channels
 });
 
 client.connect();
 
 
-client.on('message', async (channel, tags, message, self) => {
+client.on('message', async (channel, tags, message) => {
   const msg = new Message({
     name: tags['display-name'],
     color: tags.color,
-    message: message
+    channel,
+    message
   })
   try {
     msg.save()
-
   } catch (error) {
     console.error(error)
   }
