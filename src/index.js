@@ -56,10 +56,11 @@ client.connect();
 
 
 client.on('message', async (channel, tags, message) => {
+  const cleanChannel = channel.replace(/[!@#$%^&*]/g, '')
   const msg = new Message({
     name: tags['display-name'],
     color: tags.color,
-    channel,
+    channel: cleanChannel,
     message
   })
   try {
